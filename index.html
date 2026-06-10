@@ -252,6 +252,71 @@
       <p style="color:var(--gray-500);font-size:14px;">Contenido del panel en construcción.</p>
     </main>
   </div>
+  <!-- ══════════════════════════════════════
+       VISTA: LISTADO DE OFERTAS (POSTULANTE)
+  ══════════════════════════════════════ -->
+  <div id="view-listado-ofertas" class="view view-panel">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="3"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
+        Cartelera de Postulaciones
+      </div>
+      <div class="navbar-actions">
+        <a onclick="showView('view-home')">← Menú principal</a>
+      </div>
+    </nav>
+    <main class="panel-content">
+      <div class="panel-header">
+        <h1>Ofertas Laborales Disponibles</h1>
+      </div>
+
+      <div class="filtro-ver">
+        <span>Ver:</span>
+        <label>
+          <input type="radio" name="filtro-ofertas" value="mi-area" checked onchange="filtrarOfertas(this.value)" />
+          Solo mi área (Tecnología)
+        </label>
+        <label>
+          <input type="radio" name="filtro-ofertas" value="todas" onchange="filtrarOfertas(this.value)" />
+          Todas
+        </label>
+      </div>
+
+      <div id="listado-ofertas-container">
+
+        <div class="oferta-card">
+          <div class="oferta-card-header">
+            <strong>JOB_OFFER_1</strong> | Desarrollador Frontend
+          </div>
+          <div class="oferta-card-body">
+            <span>Empresa: TechCorp</span>
+            <span>Nivel: Junior</span>
+            <span>Área: Tecnología</span>
+            <span>Vacantes: 2</span>
+          </div>
+          <div class="oferta-card-footer">
+            <button class="btn-action" onclick="postularse('JOB_OFFER_1')">Postularse</button>
+          </div>
+        </div>
+
+        <div class="oferta-card">
+          <div class="oferta-card-header">
+            <strong>JOB_OFFER_3</strong> | Analista de Datos
+          </div>
+          <div class="oferta-card-body">
+            <span>Empresa: DataInc</span>
+            <span>Nivel: Junior</span>
+            <span>Área: Tecnología</span>
+            <span>Vacantes: 1</span>
+          </div>
+          <div class="oferta-card-footer">
+            <button class="btn-action" onclick="postularse('JOB_OFFER_3')">Postularse</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
 
   <!-- ══════════════════════════════════════
        SCRIPTS
