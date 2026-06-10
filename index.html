@@ -319,6 +319,99 @@
   </div>
 
   <!-- ══════════════════════════════════════
+       VISTA: ALTA DE OFERTA
+  ══════════════════════════════════════ -->
+  <div id="view-alta-oferta" class="view view-panel">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="3"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
+        Cartelera de Postulaciones
+      </div>
+      <div class="navbar-actions">
+        <a onclick="showView('view-ofertas')">← Gestión de Ofertas</a>
+      </div>
+    </nav>
+    <main class="panel-content">
+      <div class="panel-header">
+        <h1>Crear Oferta Laboral</h1>
+      </div>
+
+      <div id="alta-error" class="msg-error">Completá todos los campos obligatorios.</div>
+
+      <div class="fields">
+        <fieldset class="reg-fieldset">
+          <legend>Datos de la oferta</legend>
+
+          <div class="campo">
+            <label for="oferta-titulo">Título:</label>
+            <div class="input-wrap">
+              <input type="text" id="oferta-titulo" placeholder="Ej: Desarrollador Frontend" />
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="oferta-empresa">Empresa:</label>
+            <div class="input-wrap">
+              <input type="text" id="oferta-empresa" placeholder="Ej: Acme S.A." />
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="oferta-descripcion">Descripción:</label>
+            <textarea id="oferta-descripcion" rows="4" placeholder="Descripción de la oferta..."></textarea>
+          </div>
+
+          <div class="campo">
+            <label for="oferta-nivel">Nivel requerido:</label>
+            <select id="oferta-nivel">
+              <option value="">Seleccione una opción</option>
+              <option value="junior">Junior</option>
+              <option value="semi-senior">Semi-Senior</option>
+              <option value="senior">Senior</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="oferta-area">Área:</label>
+            <select id="oferta-area">
+              <option value="">Seleccione una opción</option>
+              <option value="tecnologia">Tecnología</option>
+              <option value="diseno">Diseño</option>
+              <option value="marketing">Marketing</option>
+              <option value="administracion">Administración</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="oferta-limite">Límite de postulaciones:</label>
+            <div class="input-wrap">
+              <input type="number" id="oferta-limite" min="1" placeholder="Ej: 50" />
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="oferta-vacantes">Cantidad de vacantes:</label>
+            <div class="input-wrap">
+              <input type="number" id="oferta-vacantes" min="1" placeholder="Ej: 3" />
+            </div>
+          </div>
+
+          <div class="campo">
+            <label class="label-check">
+              <input type="checkbox" id="oferta-destacada" />
+              ¿Destacada?
+            </label>
+          </div>
+
+        </fieldset>
+      </div>
+
+      <button class="btn-primary" onclick="handleCrearOferta()">Crear oferta</button>
+      <button class="btn-secondary" onclick="showView('view-ofertas')">Cancelar</button>
+    </main>
+  </div>
+
+  <!-- ══════════════════════════════════════
        SCRIPTS
   ══════════════════════════════════════ -->
   <script src="js/data.js"></script>
