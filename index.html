@@ -410,6 +410,57 @@
       <button class="btn-secondary" onclick="showView('view-ofertas')">Cancelar</button>
     </main>
   </div>
+  <!-- ══════════════════════════════════════
+       VISTA: CATÁLOGO DE OFERTAS DESTACADAS
+  ══════════════════════════════════════ -->
+  <div id="view-destacadas" class="view view-panel">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="3"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
+        Cartelera de Postulaciones
+      </div>
+      <div class="navbar-actions">
+        <a onclick="showView('view-listado-ofertas')">← Ofertas disponibles</a>
+      </div>
+    </nav>
+    <main class="panel-content">
+      <div class="panel-header">
+        <h1>Catálogo de Ofertas Destacadas</h1>
+      </div>
+
+      <div id="destacadas-container">
+
+        <div class="oferta-card">
+          <div class="oferta-card-header">
+            ★ DESTACADA
+          </div>
+          <div class="oferta-card-body">
+            <span>Desarrollador Backend | TechCorp</span>
+            <span>Nivel: Senior | Área: Tecnología</span>
+            <span>Descripción breve de la oferta...</span>
+          </div>
+          <div class="oferta-card-footer">
+            <button class="btn-action" onclick="postularse('DEST_1')">Postularse</button>
+          </div>
+        </div>
+
+        <div class="oferta-card">
+          <div class="oferta-card-header">
+            ★ DESTACADA
+          </div>
+          <div class="oferta-card-body">
+            <span>Diseñador UX/UI | CreativeStudio</span>
+            <span>Nivel: Semi-Senior | Área: Diseño</span>
+            <span>Descripción breve de la oferta...</span>
+          </div>
+          <div class="oferta-card-footer">
+            <button class="btn-action" onclick="postularse('DEST_2')">Postularse</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
 
   <!-- ══════════════════════════════════════
        SCRIPTS
