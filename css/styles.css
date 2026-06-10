@@ -1,13 +1,502 @@
-/* Estilos globales - Cartelera de Postulaciones */
+/* ============================================================
+   CARTELERA DE POSTULACIONES — Estilos globales
+   ============================================================ */
 
-* {
+/* ── Reset base ── */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* ── Variables ── */
+:root {
+  --blue:        #2563eb;
+  --blue-dark:   #1d4ed8;
+  --blue-light:  #3b82f6;
+  --blue-pale:   #93c5fd;
+  --blue-bg:     #eef2f7;
+  --gray-900:    #111827;
+  --gray-700:    #374151;
+  --gray-500:    #6b7280;
+  --gray-300:    #d1d5db;
+  --gray-200:    #e5e7eb;
+  --gray-100:    #f3f4f6;
+  --white:       #ffffff;
+  --radius-card: 20px;
+  --radius-inp:  10px;
+  --shadow-card: 0 8px 40px rgba(37, 99, 235, .13);
+  --font:        'Segoe UI', Arial, sans-serif;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
+  font-family: var(--font);
+  background: var(--blue-bg);
+  color: var(--gray-700);
+  min-height: 100vh;
+}
+
+a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover { text-decoration: underline; }
+
+/* ============================================================
+   VISTAS
+   ============================================================ */
+.view         { display: none; }
+.view.active  { display: flex; }
+
+/* Vista centrada (home / login / registro) */
+.view-centered {
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Vista panel (admin / gestión) */
+.view-panel {
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   DECORACIÓN DE FONDO (blobs y dots)
+   ============================================================ */
+.bg-blob-tr {
+  position: fixed;
+  top: -80px; right: -80px;
+  width: 420px; height: 420px;
+  background: var(--blue);
+  border-radius: 50%;
+  z-index: 1;
+  opacity: .92;
+}
+.bg-blob-br {
+  position: fixed;
+  bottom: -120px; right: -60px;
+  width: 340px; height: 340px;
+  background: var(--blue-light);
+  border-radius: 50%;
+  z-index: 1;
+  opacity: .85;
+}
+.bg-blob-bl {
+  position: fixed;
+  bottom: -100px; left: -80px;
+  width: 300px; height: 300px;
+  background: #cbd5e8;
+  border-radius: 50%;
+  z-index: 1;
+  opacity: .55;
+}
+
+.dots {
+  position: fixed;
+  z-index: 2;
+  display: grid;
+  gap: 8px;
+}
+.dots-tr {
+  top: 32px; right: 180px;
+  grid-template-columns: repeat(5, 6px);
+  grid-template-rows:    repeat(4, 6px);
+}
+.dots-bl {
+  bottom: 80px; left: 32px;
+  grid-template-columns: repeat(4, 6px);
+  grid-template-rows:    repeat(3, 6px);
+}
+.dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--blue-pale);
+  opacity: .7;
+}
+
+/* ── Marca superior izquierda ── */
+.brand {
+  position: fixed;
+  top: 28px; left: 32px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.brand-icon {
+  width: 52px; height: 52px;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+}
+.brand-icon svg {
+  width: 26px; height: 26px;
+  stroke: var(--blue); fill: none; stroke-width: 1.8;
+}
+.brand-text {
+  font-size: 12.5px;
+  color: var(--gray-700);
+  line-height: 1.4;
+}
+.brand-text span { color: var(--blue); font-weight: 600; }
+
+/* ============================================================
+   CARD CENTRAL (home / login / registro)
+   ============================================================ */
+.card {
+  position: relative;
+  z-index: 10;
+  background: var(--white);
+  border-radius: var(--radius-card);
+  padding: 52px 56px 44px;
+  width: 100%;
+  max-width: 540px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card.wide { max-width: 620px; }
+
+.card-icon {
+  margin-bottom: 18px;
+}
+.card-icon svg {
+  width: 52px; height: 52px;
+  stroke: var(--blue); fill: none; stroke-width: 1.6;
+}
+
+.card h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gray-900);
+  letter-spacing: -.3px;
+  margin-bottom: 10px;
+}
+
+.divider {
+  width: 44px; height: 3px;
+  background: var(--blue);
+  border-radius: 2px;
+  margin-bottom: 32px;
+}
+
+/* ── Campos de formulario ── */
+.fields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.campo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.campo label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-wrap .icon-left {
+  position: absolute;
+  left: 14px;
+  pointer-events: none;
+  display: flex;
+}
+.input-wrap .icon-left svg {
+  width: 20px; height: 20px;
+  stroke: var(--blue-pale); fill: none; stroke-width: 1.7;
+}
+
+input, select {
+  width: 100%;
+  padding: 13px 16px 13px 44px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-inp);
+  font-size: 14.5px;
+  font-family: var(--font);
+  color: var(--gray-700);
+  background: var(--white);
+  outline: none;
+  transition: border-color .2s;
+  appearance: none;
+}
+select       { padding-left: 16px; }
+input::placeholder { color: #9ca3af; }
+input:focus, select:focus { border-color: var(--blue); }
+
+.toggle-pw {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.toggle-pw svg {
+  width: 20px; height: 20px;
+  stroke: #9ca3af; fill: none; stroke-width: 1.7;
+}
+
+/* Fieldset registro */
+.reg-fieldset {
+  width: 100%;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-inp);
+  padding: 22px 18px 18px;
+}
+.reg-fieldset legend {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  padding: 0 6px;
+}
+.reg-fieldset .campo + .campo { margin-top: 16px; }
+
+/* ── Botones ── */
+.btn-primary {
+  width: 100%;
+  padding: 15px;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 15.5px;
+  font-weight: 600;
+  font-family: var(--font);
+  border: none;
+  border-radius: var(--radius-inp);
+  cursor: pointer;
+  letter-spacing: .2px;
+  transition: background .18s;
+  margin-bottom: 20px;
+}
+.btn-primary:hover { background: var(--blue-dark); }
+
+.btn-secondary {
+  width: 100%;
+  padding: 13px;
+  background: transparent;
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font);
+  border: 1.5px solid var(--blue);
+  border-radius: var(--radius-inp);
+  cursor: pointer;
+  transition: background .18s, color .18s;
+  margin-bottom: 20px;
+}
+.btn-secondary:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+
+/* Grupo de botones home */
+.botones-home {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.botones-home .btn-primary,
+.botones-home .btn-secondary {
+  margin-bottom: 0;
+}
+
+.sep {
+  width: 100%;
+  height: 1px;
+  background: var(--gray-100);
+  margin-bottom: 18px;
+}
+
+.card-footer {
+  font-size: 14px;
+  color: var(--gray-500);
+  text-align: center;
+}
+
+/* ── Mensaje de error ── */
+.msg-error {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 8px;
+  font-size: 13.5px;
+  display: none;
+}
+.msg-error.visible { display: block; }
+
+/* ============================================================
+   LAYOUT DE PANEL (navbar + contenido)
+   ============================================================ */
+.navbar {
+  background: var(--blue);
+  color: var(--white);
+  padding: 0 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(37, 99, 235, .18);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--white);
+  text-decoration: none;
+}
+.navbar-brand svg {
+  width: 24px; height: 24px;
+  stroke: var(--white); fill: none; stroke-width: 1.8;
+}
+.navbar-actions { display: flex; gap: 16px; align-items: center; }
+.navbar-actions a {
+  color: rgba(255, 255, 255, .85);
+  font-size: 14px;
+  font-weight: 500;
+}
+.navbar-actions a:hover { color: var(--white); text-decoration: underline; }
+
+.panel-content {
+  flex: 1;
+  padding: 36px 40px;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.panel-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+/* Botón acción (crear, etc.) */
+.btn-action {
+  padding: 10px 20px;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .18s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-action:hover { background: var(--blue-dark); }
+
+/* ── Tabla ── */
+.table-wrap {
+  background: var(--white);
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, .06);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+thead {
+  background: var(--blue);
+  color: var(--white);
+}
+thead th {
+  padding: 14px 18px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: .3px;
+}
+tbody tr {
+  border-bottom: 1px solid var(--gray-100);
+  transition: background .12s;
+}
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #f0f6ff; }
+tbody td {
+  padding: 14px 18px;
+  color: var(--gray-700);
+  vertical-align: middle;
+}
+
+/* Badges de estado */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-active   { background: #dcfce7; color: #15803d; }
+.badge-inactive { background: #fef9c3; color: #854d0e; }
+.badge-closed   { background: #fee2e2; color: #991b1b; }
+
+/* Botones de tabla */
+.btn-table {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: var(--font);
+  border: none;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.btn-table:hover { opacity: .8; }
+.btn-edit   { background: #e0edff; color: var(--blue); }
+.btn-close  { background: #fee2e2; color: #991b1b; }
+
+.td-actions { display: flex; gap: 6px; }
+
+/* ── Responsivo ── */
+@media (max-width: 600px) {
+  .card          { padding: 36px 20px 30px; }
+  .card h1       { font-size: 22px; }
+  .panel-content { padding: 20px 16px; }
+  .navbar        { padding: 0 16px; }
+  .brand         { display: none; }
+  .dots          { display: none; }
 }
