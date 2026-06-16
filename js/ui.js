@@ -3,16 +3,25 @@
    Depende de: data.js, ofertas.js, listado.js
    ============================================================ */
 
-const VISTAS_CENTRADAS = ['view-home', 'view-login', 'view-registro'];
-const DECO_IDS = ['deco-tr', 'deco-br', 'deco-bl', 'deco-dots-tr', 'deco-dots-bl', 'deco-brand'];
+const VISTAS_CENTRADAS = ['view-login'];
+const DECO_IDS = [];
 
-/* ── Definición del menú por rol ──────────────────────────────
-   Cada grupo tiene: label, items[]
-   Cada item:  { id (id de sección), label, icon (SVG inner), badge? }
-   badge puede ser una función () => número o null
+/* ── Menú por rol ─────────────────────────────────────────────
+   Cada grupo: { label, items[] }
+   Cada item:  { id, label, icon (SVG inner), badge? }
 ─────────────────────────────────────────────────────────────── */
 const MENU = {
   postulante: [
+    {
+      label: 'General',
+      items: [
+        {
+          id: 'sec-dashboard',
+          label: 'Dashboard',
+          icon: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>'
+        }
+      ]
+    },
     {
       label: 'Explorar',
       items: [
@@ -35,7 +44,7 @@ const MENU = {
           id: 'sec-mis-postulaciones',
           label: 'Mis postulaciones',
           icon: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/>',
-          badge: () => postulaciones.filter(p => p.username === sesionActual?.username).length
+          badge: () => postulaciones.filter(p => p.username === sesionActual?.username).length || null
         }
       ]
     }
@@ -43,11 +52,21 @@ const MENU = {
 
   admin: [
     {
+      label: 'General',
+      items: [
+        {
+          id: 'sec-dashboard',
+          label: 'Dashboard',
+          icon: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>'
+        }
+      ]
+    },
+    {
       label: 'Ofertas',
       items: [
         {
           id: 'sec-crear-oferta',
-          label: 'Crear oferta laboral',
+          label: 'Crear oferta',
           icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>'
         },
         {
@@ -73,7 +92,7 @@ const MENU = {
       items: [
         {
           id: 'sec-estadisticas',
-          label: 'Ver estadísticas',
+          label: 'Estadísticas',
           icon: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>'
         }
       ]
@@ -81,7 +100,7 @@ const MENU = {
   ]
 };
 
-/* ── Cambia la vista principal (home / login / registro / panel) ── */
+/* ── Cambia la vista principal ── */
 function showView(id) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   const vista = document.getElementById(id);
@@ -96,10 +115,9 @@ function showView(id) {
 
   if (id === 'view-panel') {
     construirSidebar();
-    // Mostrar la primera sección disponible para el rol
     const rol = sesionActual?.rol || 'postulante';
-    const primeraSeccion = MENU[rol][0].items[0].id;
-    showSeccion(primeraSeccion);
+    const defaultSec = rol === 'postulante' ? 'sec-listado' : 'sec-dashboard';
+    showSeccion(defaultSec);
   }
 }
 
@@ -109,16 +127,14 @@ function showSeccion(secId) {
   const sec = document.getElementById(secId);
   if (sec) sec.classList.add('active');
 
-  // Marcar ítem activo en sidebar
   document.querySelectorAll('.sidebar-item').forEach(el => {
     el.classList.toggle('active', el.dataset.sec === secId);
   });
 
-  // Disparar render según sección
+  if (secId === 'sec-dashboard')             renderDashboard();
   if (secId === 'sec-listado') {
-    renderListado('mi-area');
-    const radio = document.querySelector('input[name="filtro-ofertas"][value="mi-area"]');
-    if (radio) radio.checked = true;
+    initFiltros();
+    renderListado();
   }
   if (secId === 'sec-destacadas')            renderDestacadas?.();
   if (secId === 'sec-mis-postulaciones')     renderMisPostulaciones?.();
@@ -127,20 +143,116 @@ function showSeccion(secId) {
   if (secId === 'sec-estadisticas')          renderEstadisticas?.();
 }
 
-/* ── Construye el sidebar según el rol del usuario logueado ── */
+/* ── Dashboard KPI ── */
+function renderDashboard() {
+  const welcome = document.getElementById('dashboard-welcome');
+  const nombre = sesionActual?.fullname || 'Usuario';
+  const rol = sesionActual?.rol || 'postulante';
+
+  if (welcome) {
+    const hora = new Date().getHours();
+    const saludo = hora < 12 ? 'Buenos días' : hora < 18 ? 'Buenas tardes' : 'Buenas noches';
+    welcome.innerHTML = `
+      <h2>${saludo}, ${nombre} 👋</h2>
+      <p>Aquí tenés un resumen del estado actual del sistema.</p>
+    `;
+  }
+
+  const kpiGrid = document.getElementById('kpi-grid');
+  if (!kpiGrid) return;
+
+  const ofertasActivas   = ofertas.filter(o => o.estado === 'active').length;
+  const totalOfertas     = ofertas.length;
+  const totalPostulaciones = postulaciones.length;
+  const totalVacantes    = ofertas.filter(o => o.estado === 'active').reduce((s, o) => s + (o.vacantes || 0), 0);
+  const totalUsuarios    = usuarios.length;
+
+  const kpis = rol === 'admin'
+    ? [
+        {
+          label: 'Ofertas activas',
+          value: ofertasActivas,
+          color: 'purple',
+          icon: '<rect x="2" y="7" width="20" height="14" rx="3"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>'
+        },
+        {
+          label: 'Total de ofertas',
+          value: totalOfertas,
+          color: 'blue',
+          icon: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>'
+        },
+        {
+          label: 'Postulaciones recibidas',
+          value: totalPostulaciones,
+          color: 'green',
+          icon: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/>'
+        },
+        {
+          label: 'Usuarios registrados',
+          value: totalUsuarios,
+          color: 'yellow',
+          icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>'
+        }
+      ]
+    : [
+        {
+          label: 'Ofertas disponibles',
+          value: ofertasActivas,
+          color: 'purple',
+          icon: '<rect x="2" y="7" width="20" height="14" rx="3"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>'
+        },
+        {
+          label: 'Mis postulaciones',
+          value: postulaciones.filter(p => p.username === sesionActual?.username).length,
+          color: 'green',
+          icon: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/>'
+        },
+        {
+          label: 'Vacantes abiertas',
+          value: totalVacantes,
+          color: 'blue',
+          icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>'
+        },
+        {
+          label: 'Total de ofertas',
+          value: totalOfertas,
+          color: 'yellow',
+          icon: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>'
+        }
+      ];
+
+  kpiGrid.innerHTML = kpis.map(k => `
+    <div class="kpi-card">
+      <div class="kpi-icon ${k.color}">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">${k.icon}</svg>
+      </div>
+      <div class="kpi-value">${k.value}</div>
+      <div class="kpi-label">${k.label}</div>
+    </div>
+  `).join('');
+}
+
+/* ── Construye el sidebar según el rol ── */
 function construirSidebar() {
   const rol  = sesionActual?.rol || 'postulante';
   const menu = MENU[rol] || [];
 
-  // Saludo en navbar
   const saludo = document.getElementById('navbar-saludo');
   if (saludo && sesionActual) saludo.textContent = `Hola, ${sesionActual.fullname}`;
 
-  // Bloque de usuario
+  // Bloque de usuario en el footer del sidebar
   const userBlock = document.getElementById('sidebar-user');
   userBlock.innerHTML = `
     <div class="sidebar-user-name">${sesionActual?.fullname || ''}</div>
     <div class="sidebar-user-role">${rol}</div>
+    <span class="sidebar-logout" onclick="cerrarSesion()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+      Cerrar sesión
+    </span>
   `;
 
   // Construir nav
@@ -170,7 +282,7 @@ function construirSidebar() {
 
       btn.innerHTML = `
         <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">${item.icon}</svg>
-        ${item.label}
+        <span>${item.label}</span>
         ${badgeHTML}
       `;
       btn.addEventListener('click', () => showSeccion(item.id));
@@ -183,12 +295,27 @@ function construirSidebar() {
   });
 }
 
-/* ── Colapsa / expande un grupo del sidebar ── */
+/* ── Colapsa / expande grupo del sidebar ── */
 function toggleGrupo(groupEl) {
   groupEl.classList.toggle('collapsed');
 }
 
+/* ── Alterna entre el form de login y el de registro en el panel derecho ── */
+function showLoginPanel(panel) {
+  const loginWrap = document.getElementById('login-form-wrap');
+  const regWrap   = document.getElementById('reg-form-wrap');
+  if (!loginWrap || !regWrap) return;
+
+  if (panel === 'registro') {
+    loginWrap.style.display = 'none';
+    regWrap.style.display   = 'flex';
+  } else {
+    loginWrap.style.display = 'flex';
+    regWrap.style.display   = 'none';
+  }
+}
+
 /* ── Inicialización ── */
 document.addEventListener('DOMContentLoaded', () => {
-  showView('view-home');
+  showView('view-login');
 });

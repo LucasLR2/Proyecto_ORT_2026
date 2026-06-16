@@ -1,6 +1,5 @@
 /* ============================================================
    auth.js — Autenticación: login y registro
-   Depende de: data.js, utils.js, ui.js
    ============================================================ */
 
 /* ── LOGIN ── */
@@ -22,11 +21,8 @@ function handleLogin() {
 
   ocultarError('login-error');
   sesionActual = usuario;
-
-  // Todos van al panel unificado; el sidebar se adapta al rol
-  showView('view-panel');
-
   limpiarCampos(['login-username', 'login-password']);
+  showView('view-panel');
 }
 
 /* ── REGISTRO ── */
@@ -48,7 +44,6 @@ function handleRegistro() {
     return;
   }
 
-  // Restablecer texto del error por si fue modificado
   document.getElementById('reg-error').textContent = 'Completá todos los campos.';
   ocultarError('reg-error');
 
@@ -65,11 +60,12 @@ function handleRegistro() {
   limpiarCampos(campos);
 
   alert(`¡Registro exitoso! Bienvenido/a, ${nuevo.fullname}. Ya podés iniciar sesión.`);
-  showView('view-login');
+  showLoginPanel('login');
 }
 
 /* ── CERRAR SESIÓN ── */
 function cerrarSesion() {
   sesionActual = null;
-  showView('view-home');
+  showLoginPanel('login');
+  showView('view-login');
 }

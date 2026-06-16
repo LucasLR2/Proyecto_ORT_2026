@@ -9,7 +9,7 @@ function renderTabla() {
   tbody.innerHTML = '';
 
   if (ofertas.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--gray-500);padding:24px;">No hay ofertas cargadas.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-subtle);padding:28px;">No hay ofertas cargadas.</td></tr>';
     return;
   }
 

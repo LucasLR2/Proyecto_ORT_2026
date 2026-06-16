@@ -4,204 +4,151 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cartelera de Postulaciones</title>
+  <title>TalentFlow — Gestión de postulantes y ofertas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body>
 
   <!-- ══════════════════════════════════════
-       DECORACIÓN COMPARTIDA (vistas centradas)
+       VISTA: LOGIN — Split panel
+       (incluye registro en el mismo panel derecho)
   ══════════════════════════════════════ -->
-  <div class="bg-blob-tr" id="deco-tr"></div>
-  <div class="bg-blob-br" id="deco-br"></div>
-  <div class="bg-blob-bl" id="deco-bl"></div>
-  <div class="dots dots-tr" id="deco-dots-tr">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
-  <div class="dots dots-bl" id="deco-dots-bl">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
-  <div class="brand" id="deco-brand">
-    <div class="brand-icon">
-      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="10" cy="8" r="4" />
-        <path d="M2 20c0-4 3.6-7 8-7" />
-        <circle cx="18" cy="17" r="3" />
-        <line x1="20.5" y1="19.5" x2="23" y2="22" />
-      </svg>
+  <div id="view-login" class="view login-split active">
+
+    <!-- Panel izquierdo: imagen decorativa -->
+    <div class="login-panel-left">
+      <div class="login-panel-overlay"></div>
+      <div class="login-panel-copy">
+        <div class="login-panel-badge">✦ Plataforma de reclutamiento</div>
+        <p class="login-panel-tagline">Encontrá<br>tu próxima<br>oportunidad.</p>
+        <p class="login-panel-sub">Miles de ofertas laborales actualizadas en tiempo real, filtradas para tu perfil.</p>
+      </div>
     </div>
-    <div class="brand-text">Plataforma de gestión<br>de <span>postulantes y empresas</span></div>
-  </div>
 
-  <!-- ══════════════════════════════════════
-       VISTA: HOME
-  ══════════════════════════════════════ -->
-  <div id="view-home" class="view view-centered active">
-    <div class="card">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="7" width="20" height="14" rx="3" />
-          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-          <path d="M2 13h20" />
-        </svg>
-      </div>
-      <h1>Cartelera de Postulaciones</h1>
-      <div class="divider"></div>
-      <div class="botones-home">
-        <button class="btn-primary" onclick="showView('view-login')">Iniciar sesión como Postulante</button>
-        <button class="btn-secondary" onclick="showView('view-ofertas')">Gestión de Ofertas (Admin)</button>
-      </div>
-      <div class="sep"></div>
-      <div class="card-footer">¿No tenés cuenta? <a onclick="showView('view-registro')">Registrarse</a></div>
-    </div>
-  </div>
+    <!-- Panel derecho: login ↔ registro -->
+    <div class="login-panel-right">
 
-  <!-- ══════════════════════════════════════
-       VISTA: LOGIN
-  ══════════════════════════════════════ -->
-  <div id="view-login" class="view view-centered">
-    <div class="card">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="7" width="20" height="14" rx="3" />
-          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-          <path d="M2 13h20" />
-        </svg>
-      </div>
-      <h1>Inicio de Sesión</h1>
-      <div class="divider"></div>
+      <!-- ── FORMULARIO DE LOGIN ── -->
+      <div class="login-form-wrap" id="login-form-wrap">
 
-      <div id="login-error" class="msg-error">Usuario o contraseña incorrectos.</div>
-
-      <div class="fields">
-        <div class="campo">
-          <label for="login-username">Nombre de usuario:</label>
-          <div class="input-wrap">
-            <span class="icon-left">
-              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-              </svg>
-            </span>
-            <input type="text" id="login-username" placeholder="Ingrese su nombre de usuario" />
+        <div class="login-logo">
+          <div class="login-logo-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="3" />
+              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+            </svg>
           </div>
+          <span class="login-logo-name">TalentFlow</span>
         </div>
-        <div class="campo">
-          <label for="login-password">Contraseña:</label>
-          <div class="input-wrap">
-            <span class="icon-left">
-              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="5" y="11" width="14" height="10" rx="2" />
-                <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-              </svg>
-            </span>
-            <input type="password" id="login-password" placeholder="Ingrese su contraseña" />
-            <button type="button" class="toggle-pw" onclick="togglePw('login-password')"
-              aria-label="Mostrar contraseña">
-              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                <circle cx="12" cy="12" r="3" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <button class="btn-primary" onclick="handleLogin()">Ingresar</button>
-      <div class="sep"></div>
-      <div class="card-footer">¿No tenés cuenta? <a onclick="showView('view-registro')">Registrarse</a></div>
-    </div>
-  </div>
+        <h1 class="login-title">Bienvenido de vuelta</h1>
+        <p class="login-subtitle">¿No tenés cuenta? <a onclick="showLoginPanel('registro')">Crear cuenta</a></p>
 
-  <!-- ══════════════════════════════════════
-       VISTA: REGISTRO
-  ══════════════════════════════════════ -->
-  <div id="view-registro" class="view view-centered">
-    <div class="card wide">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8" r="4" />
-          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-          <line x1="19" y1="8" x2="19" y2="14" />
-          <line x1="16" y1="11" x2="22" y2="11" />
-        </svg>
-      </div>
-      <h1>Registro de Postulante</h1>
-      <div class="divider"></div>
+        <div id="login-error" class="msg-error">Usuario o contraseña incorrectos.</div>
 
-      <div id="reg-error" class="msg-error">Completá todos los campos.</div>
-
-      <div class="fields">
-        <fieldset class="reg-fieldset">
-          <legend>Datos del postulante</legend>
-
+        <div class="fields login-fields">
           <div class="campo">
-            <label for="reg-username">Nombre de usuario:</label>
             <div class="input-wrap">
-              <span class="icon-left"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <span class="icon-left">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="8" r="4" />
                   <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-                </svg></span>
-              <input type="text" id="reg-username" placeholder="Elija un nombre de usuario" />
+                </svg>
+              </span>
+              <input type="text" id="login-username" placeholder="Nombre de usuario" />
             </div>
           </div>
-
           <div class="campo">
-            <label for="reg-password">Contraseña:</label>
             <div class="input-wrap">
-              <span class="icon-left"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <span class="icon-left">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="5" y="11" width="14" height="10" rx="2" />
                   <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-                </svg></span>
-              <input type="password" id="reg-password" placeholder="Elija una contraseña" />
+                </svg>
+              </span>
+              <input type="password" id="login-password" placeholder="Contraseña" />
+              <button type="button" class="toggle-pw" onclick="togglePw('login-password')" aria-label="Mostrar contraseña">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </button>
             </div>
           </div>
+        </div>
+
+        <button class="btn-primary login-btn" onclick="handleLogin()">Ingresar</button>
+
+      </div>
+
+      <!-- ── FORMULARIO DE REGISTRO ── -->
+      <div class="login-form-wrap" id="reg-form-wrap" style="display:none">
+
+        <a class="login-back" onclick="showLoginPanel('login')">← Volver al login</a>
+
+        <div class="login-logo">
+          <div class="login-logo-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="3" />
+              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+            </svg>
+          </div>
+          <span class="login-logo-name">TalentFlow</span>
+        </div>
+
+        <h1 class="login-title">Crear cuenta</h1>
+        <p class="login-subtitle">¿Ya tenés cuenta? <a onclick="showLoginPanel('login')">Iniciar sesión</a></p>
+
+        <div id="reg-error" class="msg-error">Completá todos los campos.</div>
+
+        <div class="fields login-fields">
 
           <div class="campo">
-            <label for="reg-fullname">Nombre completo:</label>
+            <label for="reg-username">Nombre de usuario</label>
             <div class="input-wrap">
-              <span class="icon-left"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 6h16M4 12h16M4 18h7" />
-                </svg></span>
-              <input type="text" id="reg-fullname" placeholder="Ingrese su nombre completo" />
+              <span class="icon-left">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                </svg>
+              </span>
+              <input type="text" id="reg-username" placeholder="Elegí un nombre de usuario" />
             </div>
           </div>
 
           <div class="campo">
-            <label for="reg-level">Nivel de experiencia:</label>
+            <label for="reg-password">Contraseña</label>
+            <div class="input-wrap">
+              <span class="icon-left">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="11" width="14" height="10" rx="2" />
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                </svg>
+              </span>
+              <input type="password" id="reg-password" placeholder="Elegí una contraseña" />
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="reg-fullname">Nombre completo</label>
+            <div class="input-wrap">
+              <span class="icon-left">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 6h16M4 12h16M4 18h7" />
+                </svg>
+              </span>
+              <input type="text" id="reg-fullname" placeholder="Ingresá tu nombre completo" />
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="reg-level">Nivel de experiencia</label>
             <select id="reg-level">
-              <option value="">Seleccione una opción</option>
+              <option value="">Seleccioná una opción</option>
               <option value="junior">Junior</option>
               <option value="semi-senior">Semi-Senior</option>
               <option value="senior">Senior</option>
@@ -209,126 +156,95 @@
           </div>
 
           <div class="campo">
-            <label for="reg-area">Área de interés:</label>
+            <label for="reg-area">Área de interés</label>
             <select id="reg-area">
-              <option value="">Seleccione una opción</option>
+              <option value="">Seleccioná una opción</option>
               <option value="tecnologia">Tecnología</option>
               <option value="diseno">Diseño</option>
               <option value="marketing">Marketing</option>
               <option value="administracion">Administración</option>
             </select>
           </div>
-        </fieldset>
+
+        </div>
+
+        <button class="btn-primary login-btn" onclick="handleRegistro()">Crear cuenta</button>
+
       </div>
 
-      <button class="btn-primary" onclick="handleRegistro()">Registrarse</button>
-      <button class="btn-secondary" onclick="showView('view-login')">Cancelar</button>
-      <div class="sep"></div>
-      <div class="card-footer">¿Ya tenés cuenta? <a onclick="showView('view-login')">Iniciar sesión</a></div>
     </div>
   </div>
 
   <!-- ══════════════════════════════════════
-       VISTA: CATÁLOGO DE OFERTAS DESTACADAS
-  ══════════════════════════════════════ -->
-  <div id="view-destacadas" class="view view-panel">
-    <nav class="navbar">
-      <div class="navbar-brand">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="7" width="20" height="14" rx="3" />
-          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-          <path d="M2 13h20" />
-        </svg>
-        Cartelera de Postulaciones
-      </div>
-      <div class="navbar-actions">
-        <a onclick="showView('view-listado-ofertas')">← Ofertas disponibles</a>
-      </div>
-    </nav>
-    <main class="panel-content">
-      <div class="panel-header">
-        <h1>Catálogo de Ofertas Destacadas</h1>
-      </div>
-
-      <div id="destacadas-container">
-
-        <div class="oferta-card">
-          <div class="oferta-card-header">
-            ★ DESTACADA
-          </div>
-          <div class="oferta-card-body">
-            <span>Desarrollador Backend | TechCorp</span>
-            <span>Nivel: Senior | Área: Tecnología</span>
-            <span>Descripción breve de la oferta...</span>
-          </div>
-          <div class="oferta-card-footer">
-            <button class="btn-action" onclick="postularse('DEST_1')">Postularse</button>
-          </div>
-        </div>
-
-        <div class="oferta-card">
-          <div class="oferta-card-header">
-            ★ DESTACADA
-          </div>
-          <div class="oferta-card-body">
-            <span>Diseñador UX/UI | CreativeStudio</span>
-            <span>Nivel: Semi-Senior | Área: Diseño</span>
-            <span>Descripción breve de la oferta...</span>
-          </div>
-          <div class="oferta-card-footer">
-            <button class="btn-action" onclick="postularse('DEST_2')">Postularse</button>
-          </div>
-        </div>
-
-      </div>
-    </main>
-  </div>
-
-  <!-- ══════════════════════════════════════
        VISTA: PANEL PRINCIPAL (postulante + admin)
-       Navbar + Sidebar + Contenido dinámico
   ══════════════════════════════════════ -->
   <div id="view-panel" class="view view-panel">
 
-    <!-- Navbar superior -->
     <nav class="navbar">
       <div class="navbar-brand">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="7" width="20" height="14" rx="3" />
-          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-          <path d="M2 13h20" />
-        </svg>
-        Cartelera de Postulaciones
+        <div class="navbar-brand-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="3" />
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+          </svg>
+        </div>
+        TalentFlow
       </div>
       <div class="navbar-actions">
-        <span id="navbar-saludo" style="color:rgba(255,255,255,.85);font-size:14px;font-weight:500;"></span>
+        <span id="navbar-saludo"></span>
         <a onclick="cerrarSesion()">Cerrar sesión</a>
       </div>
     </nav>
 
-    <!-- Cuerpo: sidebar + contenido -->
     <div class="panel-body">
 
-      <!-- ── Sidebar ── -->
       <aside class="sidebar" id="sidebar">
-        <div class="sidebar-user" id="sidebar-user"></div>
+        <div class="sidebar-brand">
+          <div class="sidebar-brand-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="3" />
+              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+            </svg>
+          </div>
+          <div>
+            <div class="sidebar-brand-name">TalentFlow</div>
+            <div class="sidebar-brand-tag">Plataforma de talento</div>
+          </div>
+        </div>
         <nav class="sidebar-nav" id="sidebar-nav"></nav>
+        <div class="sidebar-user" id="sidebar-user"></div>
       </aside>
 
-      <!-- ── Área de contenido dinámico ── -->
       <main class="panel-content" id="panel-main">
+
+        <!-- SECCIÓN: Dashboard -->
+        <section id="sec-dashboard" class="seccion">
+          <div class="panel-header">
+            <h1>Dashboard</h1>
+          </div>
+          <div class="dashboard-welcome" id="dashboard-welcome"></div>
+          <div class="kpi-grid" id="kpi-grid"></div>
+        </section>
 
         <!-- SECCIÓN: Listado de ofertas (postulante) -->
         <section id="sec-listado" class="seccion">
           <div class="panel-header">
-            <h1>Ofertas Disponibles</h1>
+            <h1>Ofertas disponibles</h1>
           </div>
-          <div class="filtro-ver">
-            <span>Ver:</span>
-            <label><input type="radio" name="filtro-ofertas" value="mi-area" checked
-                onchange="filtrarOfertas(this.value)" /> Solo mi área</label>
-            <label><input type="radio" name="filtro-ofertas" value="todas" onchange="filtrarOfertas(this.value)" />
-              Todas</label>
+          <div class="filtro-bar">
+            <select id="filtro-nivel" onchange="filtrarOfertas()">
+              <option value="">Todos los niveles</option>
+              <option value="junior">Junior</option>
+              <option value="semi-senior">Semi-Senior</option>
+              <option value="senior">Senior</option>
+            </select>
+            <select id="filtro-area" onchange="filtrarOfertas()">
+              <option value="">Todas las áreas</option>
+              <option value="tecnologia">Tecnología</option>
+              <option value="diseno">Diseño</option>
+              <option value="marketing">Marketing</option>
+              <option value="administracion">Administración</option>
+            </select>
           </div>
           <div id="listado-ofertas-container"></div>
         </section>
@@ -354,13 +270,13 @@
           <div class="panel-header">
             <h1>Crear Oferta Laboral</h1>
           </div>
-          <p style="color:var(--gray-500);font-size:14px;">Formulario en construcción.</p>
+          <p style="color:var(--text-subtle);font-size:14px;">Formulario en construcción.</p>
         </section>
 
         <!-- SECCIÓN: Gestionar ofertas (admin) -->
         <section id="sec-gestionar-ofertas" class="seccion">
           <div class="panel-header">
-            <h1>Gestionar Ofertas Laborales</h1>
+            <h1>Gestionar Ofertas</h1>
             <button class="btn-action" onclick="crearOferta()">+ Nueva oferta</button>
           </div>
           <div class="table-wrap">
