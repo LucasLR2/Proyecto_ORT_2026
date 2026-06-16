@@ -555,6 +555,55 @@
   <br>
   <a href="gestion_ofertas.html">Volver al menú administrador</a>
 
+
+  <h2>Estadísticas del Sistema</h2>
+ 
+  <h3>Postulaciones por Oferta</h3>
+ 
+  <label for="buscar">Buscar por título:</label>
+  <input type="text" id="buscar" />
+  <input type="button" value="Buscar" onclick="buscar()" />
+ 
+  <br><br>
+ 
+  <table border="1" id="tabla-estadisticas">
+    <thead>
+      <tr>
+        <th>Oferta</th>
+        <th>Pend.</th>
+        <th>Acept.</th>
+        <th>Recház.</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody id="estadisticas-tbody">
+      <tr>
+        <td>Dev Front</td>
+        <td>2</td>
+        <td>3</td>
+        <td>1</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>Analista</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+        <td>4</td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <br>
+  <hr>
+ 
+  <p>TOTAL OFERTAS: Activas: 4 | Inact.: 3 | Cerr.: 3</p>
+  <p>VACANTES CUBIERTAS: 7 / 20 = 35%</p>
+  <p>TOP POSTULANTE: juan123 (5 postulaciones)</p>
+ 
+  <br>
+  <a href="gestion_ofertas.html">Volver al menú administrador</a>
+
   <!-- ══════════════════════════════════════
        SCRIPTS
   ══════════════════════════════════════ -->
