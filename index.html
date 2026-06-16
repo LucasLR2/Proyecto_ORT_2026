@@ -500,6 +500,61 @@
 
 </div>
 
+ <h2>Postulaciones Pendientes</h2>
+ 
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Postulante</th>
+        <th>Oferta</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>JOB_1</td>
+        <td>juan123</td>
+        <td>Dev Frontend</td>
+        <td><input type="button" value="Procesar" onclick="procesar('JOB_1', 'juan123', 'Dev Frontend', 1)" /></td>
+      </tr>
+      <tr>
+        <td>JOB_4</td>
+        <td>maria456</td>
+        <td>Analista Datos</td>
+        <td><input type="button" value="Procesar" onclick="procesar('JOB_4', 'maria456', 'Analista Datos', 3)" /></td>
+      </tr>
+      <tr>
+        <td>JOB_7</td>
+        <td>carlos789</td>
+        <td>Dev Frontend</td>
+        <td><input type="button" value="Procesar" onclick="procesar('JOB_7', 'carlos789', 'Dev Frontend', 1)" /></td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <br>
+ 
+  <div id="panel-procesar" style="display:none;">
+    <hr>
+    <p>Al hacer clic en [Procesar]:</p>
+    <p>
+      Postulación: <span id="det-id"></span> |
+      Postulante: <span id="det-postulante"></span>
+    </p>
+    <p>
+      Oferta: <span id="det-oferta"></span> |
+      Vacantes disp.: <span id="det-vacantes"></span>
+    </p>
+    <br>
+    <input type="button" value="[ Aceptar ]" onclick="aceptar()" />
+    &nbsp;&nbsp;
+    <input type="button" value="[ Rechazar ]" onclick="rechazar()" />
+  </div>
+ 
+  <br>
+  <a href="gestion_ofertas.html">Volver al menú administrador</a>
+
   <!-- ══════════════════════════════════════
        SCRIPTS
   ══════════════════════════════════════ -->
