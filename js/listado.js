@@ -43,6 +43,8 @@ function renderListado() {
   visibles.forEach(oferta => {
     const postulado  = yaPostulado(oferta.id);
     const color      = AREA_COLOR[oferta.area] || '#7c3aed';
+    const areaLabel  = AREA_LABEL[oferta.area]  || oferta.area;
+    const nivelLabel = NIVEL_LABEL[oferta.nivel] || oferta.nivel;
     const inicial    = oferta.empresa.charAt(0).toUpperCase();
 
     const card = document.createElement('div');
@@ -50,38 +52,49 @@ function renderListado() {
     card.style.setProperty('--area-color', color);
 
     card.innerHTML = `
-      <div class="oferta-card-ribbon"></div>
+      <div class="oferta-card-header">
+        <div class="oferta-card-badge-wrap">
+          <span class="oferta-tag oferta-tag-area" style="background:${color}20;color:${color}">${areaLabel}</span>
+          <span class="oferta-tag oferta-tag-nivel">${nivelLabel}</span>
+        </div>
+        <div class="oferta-card-avatar" style="background:${color}18;color:${color}">${inicial}</div>
+      </div>
 
       <div class="oferta-card-body">
-        <div class="oferta-card-top">
-          <div class="oferta-card-avatar" style="background:${color}22;color:${color}">
-            ${inicial}
-          </div>
-          <div class="oferta-card-heading">
-            <h3 class="oferta-card-titulo">${oferta.titulo}</h3>
-            <span class="oferta-card-empresa">${oferta.empresa}</span>
-          </div>
-        </div>
+        <h3 class="oferta-card-titulo">${oferta.titulo}</h3>
+        <p class="oferta-card-empresa">${oferta.empresa}</p>
 
-        <div class="oferta-card-tags">
-          <span class="oferta-tag">${NIVEL_LABEL[oferta.nivel] || oferta.nivel}</span>
-          <span class="oferta-tag">${AREA_LABEL[oferta.area]  || oferta.area}</span>
-          <span class="oferta-tag">${oferta.vacantes} vacante${oferta.vacantes !== 1 ? 's' : ''}</span>
-        </div>
-
-        <div class="oferta-card-fecha">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
-            <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-          </svg>
-          ${formatFecha(oferta.fecha)}
+        <div class="oferta-card-meta">
+          <span class="oferta-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="16"/>
+              <line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            ${oferta.vacantes} vacante${oferta.vacantes !== 1 ? 's' : ''}
+          </span>
+          <span class="oferta-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            ${formatFecha(oferta.fecha)}
+          </span>
         </div>
       </div>
 
       <div class="oferta-card-footer">
+        <div class="oferta-vacantes-bar">
+          <div class="oferta-vacantes-fill" style="width:${Math.min(100, oferta.vacantes * 20)}%;background:${color}"></div>
+        </div>
         ${postulado
-          ? '<span class="btn-postulado">✓ Ya postulado</span>'
-          : `<button class="btn-action" onclick="postularse('${oferta.id}')">Postularse</button>`
+          ? '<button class="btn-listado-applied" disabled>✓ Ya postulado</button>'
+          : `<button class="btn-listado-apply" onclick="postularse('${oferta.id}')"
+                     style="--area-color:${color}">Postularme</button>`
         }
       </div>
     `;

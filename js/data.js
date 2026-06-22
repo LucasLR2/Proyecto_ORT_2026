@@ -10,6 +10,14 @@ const usuarios = [
     rol:      'admin',
     level:    '',
     area:     ''
+  },
+  {
+    username: 'Test',
+    password: '123',
+    fullname: 'Test User',
+    rol:      'postulante',
+    level:    'junior',
+    area:     'tecnologia'
   }
 ];
 

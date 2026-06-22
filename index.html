@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TalentFlow — Gestión de postulantes y ofertas</title>
+  <title>Oportunia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -14,12 +14,10 @@
 <body>
 
   <!-- ══════════════════════════════════════
-       VISTA: LOGIN — Split panel
-       (incluye registro en el mismo panel derecho)
+       VISTA: LOGIN
   ══════════════════════════════════════ -->
   <div id="view-login" class="view login-split active">
 
-    <!-- Panel izquierdo: imagen decorativa -->
     <div class="login-panel-left">
       <div class="login-panel-overlay"></div>
       <div class="login-panel-copy">
@@ -29,20 +27,16 @@
       </div>
     </div>
 
-    <!-- Panel derecho: login ↔ registro -->
     <div class="login-panel-right">
 
-      <!-- ── FORMULARIO DE LOGIN ── -->
+      <!-- Formulario de login -->
       <div class="login-form-wrap" id="login-form-wrap">
 
         <div class="login-logo">
           <div class="login-logo-icon">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="7" width="20" height="14" rx="3" />
-              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-            </svg>
+            <img src="img/Logo.png" alt="Oportunia" />
           </div>
-          <span class="login-logo-name">TalentFlow</span>
+          <span class="login-logo-name">Oportunia</span>
         </div>
 
         <h1 class="login-title">Bienvenido de vuelta</h1>
@@ -71,7 +65,8 @@
                 </svg>
               </span>
               <input type="password" id="login-password" placeholder="Contraseña" />
-              <button type="button" class="toggle-pw" onclick="togglePw('login-password')" aria-label="Mostrar contraseña">
+              <button type="button" class="toggle-pw" onclick="togglePw('login-password')"
+                aria-label="Mostrar contraseña">
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                   <circle cx="12" cy="12" r="3" />
@@ -85,19 +80,16 @@
 
       </div>
 
-      <!-- ── FORMULARIO DE REGISTRO ── -->
+      <!-- Formulario de registro -->
       <div class="login-form-wrap" id="reg-form-wrap" style="display:none">
 
         <a class="login-back" onclick="showLoginPanel('login')">← Volver al login</a>
 
         <div class="login-logo">
           <div class="login-logo-icon">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="7" width="20" height="14" rx="3" />
-              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-            </svg>
+            <img src="img/Logo.png" alt="Oportunia" />
           </div>
-          <span class="login-logo-name">TalentFlow</span>
+          <span class="login-logo-name">Oportunia</span>
         </div>
 
         <h1 class="login-title">Crear cuenta</h1>
@@ -106,7 +98,6 @@
         <div id="reg-error" class="msg-error">Completá todos los campos.</div>
 
         <div class="fields login-fields">
-
           <div class="campo">
             <label for="reg-username">Nombre de usuario</label>
             <div class="input-wrap">
@@ -119,7 +110,6 @@
               <input type="text" id="reg-username" placeholder="Elegí un nombre de usuario" />
             </div>
           </div>
-
           <div class="campo">
             <label for="reg-password">Contraseña</label>
             <div class="input-wrap">
@@ -132,7 +122,6 @@
               <input type="password" id="reg-password" placeholder="Elegí una contraseña" />
             </div>
           </div>
-
           <div class="campo">
             <label for="reg-fullname">Nombre completo</label>
             <div class="input-wrap">
@@ -144,7 +133,6 @@
               <input type="text" id="reg-fullname" placeholder="Ingresá tu nombre completo" />
             </div>
           </div>
-
           <div class="campo">
             <label for="reg-level">Nivel de experiencia</label>
             <select id="reg-level">
@@ -154,7 +142,6 @@
               <option value="senior">Senior</option>
             </select>
           </div>
-
           <div class="campo">
             <label for="reg-area">Área de interés</label>
             <select id="reg-area">
@@ -165,7 +152,6 @@
               <option value="administracion">Administración</option>
             </select>
           </div>
-
         </div>
 
         <button class="btn-primary login-btn" onclick="handleRegistro()">Crear cuenta</button>
@@ -176,23 +162,19 @@
   </div>
 
   <!-- ══════════════════════════════════════
-       VISTA: PANEL PRINCIPAL (postulante + admin)
+       VISTA: PANEL PRINCIPAL
   ══════════════════════════════════════ -->
   <div id="view-panel" class="view view-panel">
 
     <nav class="navbar">
       <div class="navbar-brand">
         <div class="navbar-brand-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="7" width="20" height="14" rx="3" />
-            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-          </svg>
+          <img src="img/Logo.png" alt="Oportunia" />
         </div>
-        TalentFlow
+        Oportunia
       </div>
       <div class="navbar-actions">
         <span id="navbar-saludo"></span>
-        <a onclick="cerrarSesion()">Cerrar sesión</a>
       </div>
     </nav>
 
@@ -200,31 +182,12 @@
 
       <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
-          <div class="sidebar-brand-icon">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="7" width="20" height="14" rx="3" />
-              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-            </svg>
-          </div>
-          <div>
-            <div class="sidebar-brand-name">TalentFlow</div>
-            <div class="sidebar-brand-tag">Plataforma de talento</div>
-          </div>
         </div>
         <nav class="sidebar-nav" id="sidebar-nav"></nav>
         <div class="sidebar-user" id="sidebar-user"></div>
       </aside>
 
       <main class="panel-content" id="panel-main">
-
-        <!-- SECCIÓN: Dashboard -->
-        <section id="sec-dashboard" class="seccion">
-          <div class="panel-header">
-            <h1>Dashboard</h1>
-          </div>
-          <div class="dashboard-welcome" id="dashboard-welcome"></div>
-          <div class="kpi-grid" id="kpi-grid"></div>
-        </section>
 
         <!-- SECCIÓN: Listado de ofertas (postulante) -->
         <section id="sec-listado" class="seccion">
@@ -322,6 +285,8 @@
   <script src="js/auth.js"></script>
   <script src="js/ofertas.js"></script>
   <script src="js/listado.js"></script>
+  <script src="js/destacadas.js"></script>
+  <script src="js/mispostulaciones.js"></script>
   <script src="js/ui.js"></script>
 </body>
 
