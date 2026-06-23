@@ -111,6 +111,31 @@ function filtrarOfertas() {
 function postularse(ofertaId) {
   if (!sesionActual) return;
   if (yaPostulado(ofertaId)) { alert('Ya te postulaste a esta oferta.'); return; }
-  postulaciones.push({ username: sesionActual.username, ofertaId });
+
+  const oferta = ofertas.find(o => o.id === ofertaId);
+  if (!oferta || oferta.estado !== 'active') return;
+
+  postulaciones.push({
+    id:       generarId('POST_', postulaciones),
+    ofertaId: ofertaId,
+    username: sesionActual.username,
+    fullname: sesionActual.fullname,
+    estado:   'pendiente',
+    fecha:    new Date().toISOString().split('T')[0]
+  });
+
+  oferta.vacantes--;
+  if (oferta.vacantes <= 0) {
+    oferta.vacantes = 0;
+    oferta.estado = 'closed';
+  }
+
   renderListado();
+  construirSidebar();
+  const secId = document.querySelector('.seccion.active')?.id;
+  if (secId) {
+    document.querySelectorAll('.sidebar-item').forEach(el => {
+      el.classList.toggle('active', el.dataset.sec === secId);
+    });
+  }
 }

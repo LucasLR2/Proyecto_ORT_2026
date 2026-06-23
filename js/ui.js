@@ -34,7 +34,7 @@ const MENU = {
 
   admin: [
     {
-      label: 'Ofertas',
+      label: '',
       items: [
         {
           id: 'sec-crear-oferta',
@@ -49,7 +49,7 @@ const MENU = {
       ]
     },
     {
-      label: 'Postulaciones',
+      label: '',
       items: [
         {
           id: 'sec-procesar-postulaciones',
@@ -60,7 +60,7 @@ const MENU = {
       ]
     },
     {
-      label: 'Sistema',
+      label: '',
       items: [
         {
           id: 'sec-estadisticas',
@@ -112,6 +112,13 @@ function showSeccion(secId) {
   if (secId === 'sec-gestionar-ofertas')      renderTabla();
   if (secId === 'sec-procesar-postulaciones') renderProcesar?.();
   if (secId === 'sec-estadisticas')           renderEstadisticas?.();
+  if (secId === 'sec-crear-oferta') {
+    resetFormOferta?.();
+    const titulo = document.getElementById('crear-oferta-titulo');
+    const btn    = document.getElementById('of-submit-btn');
+    if (titulo) titulo.textContent = 'Crear Oferta Laboral';
+    if (btn)    btn.textContent    = 'Publicar oferta';
+  }
 }
 
 /* ── Construye el sidebar según el rol ── */

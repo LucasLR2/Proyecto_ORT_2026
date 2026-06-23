@@ -128,12 +128,19 @@ function postularDesde(ofertaId) {
   if (yaPostulo) return;
 
   postulaciones.push({
-    id:        generarId('POST_', postulaciones),
-    ofertaId:  ofertaId,
-    username:  sesionActual.username,
-    estado:    'pendiente',
-    fecha:     new Date().toISOString().split('T')[0]
+    id:       generarId('POST_', postulaciones),
+    ofertaId: ofertaId,
+    username: sesionActual.username,
+    fullname: sesionActual.fullname,
+    estado:   'pendiente',
+    fecha:    new Date().toISOString().split('T')[0]
   });
+
+  oferta.vacantes--;
+  if (oferta.vacantes <= 0) {
+    oferta.vacantes = 0;
+    oferta.estado = 'closed';
+  }
 
   /* Re-renderiza para reflejar el cambio */
   renderDestacadas();

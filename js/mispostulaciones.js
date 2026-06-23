@@ -5,8 +5,8 @@
 
 const ESTADO_POST = {
   pendiente: { clase: 'post-badge-pendiente', label: 'Pendiente' },
-  aceptada:  { clase: 'post-badge-aceptada',  label: 'Aceptada'  },
-  rechazada: { clase: 'post-badge-rechazada', label: 'Rechazada' }
+  aprobado:  { clase: 'post-badge-aceptada',  label: 'Aprobado'  },
+  rechazado: { clase: 'post-badge-rechazada', label: 'Rechazado' }
 };
 
 function renderMisPostulaciones() {
@@ -33,8 +33,8 @@ function renderMisPostulaciones() {
   /* Resumen rápido */
   const total     = mias.length;
   const pendientes = mias.filter(p => p.estado === 'pendiente').length;
-  const aceptadas  = mias.filter(p => p.estado === 'aceptada').length;
-  const rechazadas = mias.filter(p => p.estado === 'rechazada').length;
+  const aceptadas  = mias.filter(p => p.estado === 'aprobado').length;
+  const rechazadas = mias.filter(p => p.estado === 'rechazado').length;
 
   container.innerHTML = `
     <div class="mispost-summary">
